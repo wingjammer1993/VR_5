@@ -4,8 +4,9 @@ var rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
 var container, stats;
 
 var camera, scene, renderer;
-var uniforms, material, mesh;
+var uniforms, material, mesh, starMaterial;
 var obj;
+var obj2;
 var mouseX = 0, mouseY = 0;
 
 var windowHalfX = window.innerWidth / 2;
@@ -71,6 +72,35 @@ function init() {
         object.scale.z = 1;
         obj = object
         scene.add( obj );
+
+    } );
+
+
+    var starMaterial = new THREE.MeshPhongMaterial(
+	{
+	    color: 0x00CC00
+	});
+
+        // model
+    var loader = new THREE.OBJLoader( manager );
+    loader.load( 'tinkerstar.obj', function ( object ) {
+
+        object.traverse( function ( child ) {
+
+            if ( child instanceof THREE.Mesh ) {
+
+                child.material = starMaterial;
+            }
+        } );
+        object.rotation.x = -90*Math.PI / 180;
+//        object.rotation.y = 20* Math.PI / 180;
+//        object.rotation.z = 20* Math.PI / 180;
+        object.position.y = 200
+        object.scale.x = 1;
+        object.scale.y = 1;
+        object.scale.z = 1;
+        obj2 = object
+        scene.add( obj2 );
 
     } );
 
