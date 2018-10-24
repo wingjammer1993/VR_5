@@ -31,6 +31,29 @@
 		</div>
 
 		<script src="http://threejs.org/build/three.min.js"></script>
+		<script id="vertexShader" type="x-shader/x-vertex">
+		varying vec2 vUv;
+
+		void main()
+		{
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+		}
+		</script>
+
+		<script id="fragmentShader" type="x-shader/x-fragment">
+		varying vec2 vUv;
+		void main()
+		{
+            vec2 position = -1.0 + 2.0 * vUv;
+            float red = abs((position.x));
+            float green = abs((position.x * position.y));
+            float blue = abs((position.y));
+            gl_FragColor = vec4(red, green, blue, 1.0);
+		}
+		</script>
+
+
 		<script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
 		<script src="http://threejs.org/examples/js/Detector.js"></script>
 		<script src="http://threejs.org/examples/js/libs/stats.min.js"></script>

@@ -4,6 +4,7 @@ var rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
 var container, stats;
 
 var camera, scene, renderer;
+var uniforms, material, mesh;
 
 var mouseX = 0, mouseY = 0;
 
@@ -26,6 +27,17 @@ function init() {
     // scene
 
     scene = new THREE.Scene();
+
+    uniforms = {
+			time: { type: "f", value: 1.0 },
+			resolution: { type: "v2", value: new THREE.Vector2() }
+		};
+
+    material = new THREE.ShaderMaterial( {
+        uniforms: uniforms,
+        vertexShader: document.getElementById( 'vertexShader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+    });
 
     var ambient = new THREE.AmbientLight( 0x101030 );
     scene.add( ambient );
@@ -51,10 +63,8 @@ function init() {
 
             if ( child instanceof THREE.Mesh ) {
 
-                //child.material.map = texture;
-
+                child.material = material;
             }
-
         } );
         object.rotation.x = -90*Math.PI / 180;
 //        object.rotation.y = 20* Math.PI / 180;
