@@ -16,49 +16,51 @@
 			body {
 				font-family: Monospace;
 				background-color: #000;
-				color: #fff;
+				color: #f00;
 				margin: 0px;
 				overflow: hidden;
-			}
-			#info {
-				color: #fff;
-				position: absolute;
-				top: 10px;
-				width: 100%;
-				text-align: center;
-				z-index: 100;
-				display:block;
 			}
 			#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
 		</style>
 	</head>
 
 	<body>
-		<div id="info">
-            OBJ loader
-		</div>
-
 		<script src="http://threejs.org/build/three.min.js"></script>
 		<script id="vertexShader" type="x-shader/x-vertex">
-		varying vec2 vUv;
+			attribute float displacement;
+			varying vec3 vNormal;
 
-		void main()
-		{
-			vUv = uv;
-			gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-		}
+			void main() {
+
+			  vNormal = normal;
+			  vec3 newPosition = position +
+				normal * vec3(displacement);
+
+			  gl_Position = projectionMatrix *
+							modelViewMatrix *
+							vec4(newPosition, 1.0);
+			}
 		</script>
 
 		<script id="fragmentShader" type="x-shader/x-fragment">
-		varying vec2 vUv;
-		void main()
-		{
-            vec2 position = -1.0 + 2.0 * vUv;
-            float red = abs((position.x));
-            float green = abs((position.x * position.y));
-            float blue = abs((position.y));
-            gl_FragColor = vec4(red, green, blue, 1.0);
-		}
+			// same name and type as VS
+			varying vec3 vNormal;
+
+			void main() {
+
+			  vec3 light = vec3(0.5, 0.3, 1);
+
+			  light = normalize(light);
+
+			  float dProd = max(0.0,
+								dot(vNormal, light));
+
+			  gl_FragColor = vec4(dProd, // R
+								  dProd, // G
+								  dProd, // B
+								  1.0);  // A
+
+			}
 		</script>
 
 
