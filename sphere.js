@@ -5,16 +5,13 @@ var container, stats;
 
 var camera, scene, renderer;
 var uniforms, material, mesh;
-
+var obj;
 var mouseX = 0, mouseY = 0;
 
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-
-init();
-animate();
-
+init()
 
 function init() {
 
@@ -102,19 +99,40 @@ function onDocumentMouseMove( event ) {
     mouseY = ( event.clientY - windowHalfY ) / 2;
 }
 
-function animate() {
-    requestAnimationFrame( animate );
-    render();
-}
+window.onload = function() {
 
-function render() {
-    obj.rotation.z += (0.2*(Math.PI / 180));
-    obj.rotation.z %=360;
+//    init();
 
-    camera.position.x += ( mouseX - camera.position.x ) * .05;
-    camera.position.y += ( - mouseY - camera.position.y ) * .05;
+    renderer.setAnimationLoop( mainLoop );
 
-    camera.lookAt( scene.position );
+    function mainLoop()
+    {
+    processInput();
+    update();
+    draw();
 
-    renderer.render( scene, camera );
+    }
+
+
+    function processInput()
+    {
+
+    }
+
+    function draw()
+    {
+        renderer.render(scene,camera);
+    }
+
+    function update()
+    {
+        obj.rotation.z += (0.2*(Math.PI / 180));
+        obj.rotation.z %=360;
+//
+        camera.position.x += ( mouseX - camera.position.x ) * .05;
+        camera.position.y += ( - mouseY - camera.position.y ) * .05;
+
+        camera.lookAt( scene.position );
+    }
+
 }
