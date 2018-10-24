@@ -45,7 +45,7 @@ function init() {
 
     // model
     var loader = new THREE.OBJLoader( manager );
-    loader.load( 'ship_triangle.obj', function ( object ) {
+    loader.load( 'tinker.obj', function ( object ) {
 
         object.traverse( function ( child ) {
 
