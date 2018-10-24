@@ -66,17 +66,21 @@ function init() {
         object.rotation.x = -90*Math.PI / 180;
 //        object.rotation.y = 20* Math.PI / 180;
 //        object.rotation.z = 20* Math.PI / 180;
-        object.scale.x = 5;
-        object.scale.y = 5;
-        object.scale.z = 5;
+        object.scale.x = 1;
+        object.scale.y = 1;
+        object.scale.z = 1;
         obj = object
         scene.add( obj );
 
     } );
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.vr.enabled = true;
     container.appendChild( renderer.domElement );
+    /* 3. Add the WebVR button */
+    document.body.appendChild( WEBVR.createButton( renderer ) );
 
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
