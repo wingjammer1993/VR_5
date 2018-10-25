@@ -25,7 +25,7 @@ function init() {
     // scene
 
     scene = new THREE.Scene();
-
+    scene.background = new THREE.Color( 0xFF7619 );
     uniforms = {
 			time: { type: "f", value: 1.0 },
 			resolution: { type: "v2", value: new THREE.Vector2() }
@@ -67,19 +67,20 @@ function init() {
         object.rotation.x = -90*Math.PI / 180;
 //        object.rotation.y = 20* Math.PI / 180;
 //        object.rotation.z = 20* Math.PI / 180;
-        object.scale.x = 1;
-        object.scale.y = 1;
-        object.scale.z = 1;
+        object.scale.x = 2;
+        object.scale.y = 2;
+        object.scale.z = 2;
         obj = object
         scene.add( obj );
 
     } );
 
 
-    var starMaterial = new THREE.MeshPhongMaterial(
-	{
-	    color: 0x00CC00
-	});
+    starMaterial = new THREE.MeshStandardMaterial( {
+        metalness: 1,   // between 0 and 1
+        roughness: 0.5, // between 0 and 1
+        color: 0xADFF2F
+    } );
 
         // model
     var loader = new THREE.OBJLoader( manager );
@@ -95,7 +96,7 @@ function init() {
         object.rotation.x = -90*Math.PI / 180;
 //        object.rotation.y = 20* Math.PI / 180;
 //        object.rotation.z = 20* Math.PI / 180;
-        object.position.y = 200
+        object.position.x = -5
         object.scale.x = 1;
         object.scale.y = 1;
         object.scale.z = 1;
@@ -162,6 +163,9 @@ window.onload = function() {
     {
         obj.rotation.z += (0.2*(Math.PI / 180));
         obj.rotation.z %=360;
+
+        obj2.rotation.z += (0.2*(Math.PI / 180));
+        obj2.rotation.z %=360;
 //
         camera.position.x += ( mouseX - camera.position.x ) * .05;
         camera.position.y += ( - mouseY - camera.position.y ) * .05;
