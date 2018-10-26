@@ -12,7 +12,6 @@ var mouseX = 0, mouseY = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-init()
 
 function init() {
 
@@ -21,7 +20,7 @@ function init() {
 
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
     camera.position.z = 600;
-
+    console.log('hi');
     // scene
 
     scene = new THREE.Scene();
@@ -105,7 +104,7 @@ function init() {
 
     } );
 
-    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.vr.enabled = true;
@@ -136,7 +135,7 @@ function onDocumentMouseMove( event ) {
 
 window.onload = function() {
 
-//    init();
+    init();
 
     renderer.setAnimationLoop( mainLoop );
 
@@ -161,11 +160,11 @@ window.onload = function() {
 
     function update()
     {
-        obj.rotation.z += (0.2*(Math.PI / 180));
-        obj.rotation.z %=360;
+//        obj.rotation.z += (0.2*(Math.PI / 180));
+//        obj.rotation.z %=360;
 
-        obj2.rotation.z += (0.2*(Math.PI / 180));
-        obj2.rotation.z %=360;
+//        obj2.rotation.z += (0.2*(Math.PI / 180));
+//        obj2.rotation.z %=360;
 //
         camera.position.x += ( mouseX - camera.position.x ) * .05;
         camera.position.y += ( - mouseY - camera.position.y ) * .05;
@@ -174,3 +173,5 @@ window.onload = function() {
     }
 
 }
+
+
