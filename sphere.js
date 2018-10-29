@@ -12,6 +12,8 @@ var mouseX = 0, mouseY = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
+init();
+animate();
 
 function init() {
 
@@ -107,7 +109,7 @@ function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.vr.enabled = true;
+//    renderer.vr.enabled = true;
     container.appendChild( renderer.domElement );
     /* 3. Add the WebVR button */
     document.body.appendChild( WEBVR.createButton( renderer ) );
@@ -133,45 +135,25 @@ function onDocumentMouseMove( event ) {
     mouseY = ( event.clientY - windowHalfY ) / 2;
 }
 
-window.onload = function() {
-
-    init();
-
-    renderer.setAnimationLoop( mainLoop );
-
-    function mainLoop()
-    {
-    processInput();
-    update();
-    draw();
-
-    }
 
 
-    function processInput()
-    {
+function animate() {
+				requestAnimationFrame( animate );
+				render();
+			}
 
-    }
 
-    function draw()
-    {
-        renderer.render(scene,camera);
-    }
+function render()
+{
+        obj.rotation.z += (0.2*(Math.PI / 180));
+        obj.rotation.z %=360;
 
-    function update()
-    {
-//        obj.rotation.z += (0.2*(Math.PI / 180));
-//        obj.rotation.z %=360;
-
-//        obj2.rotation.z += (0.2*(Math.PI / 180));
-//        obj2.rotation.z %=360;
+        obj2.rotation.z += (0.2*(Math.PI / 180));
+        obj2.rotation.z %=360;
 //
-        camera.position.x += ( mouseX - camera.position.x ) * .05;
-        camera.position.y += ( - mouseY - camera.position.y ) * .05;
+    camera.position.x += ( mouseX - camera.position.x ) * .05;
+    camera.position.y += ( - mouseY - camera.position.y ) * .05;
 
-        camera.lookAt( scene.position );
-    }
-
-}
-
-
+    camera.lookAt( scene.position );
+     renderer.render(scene,camera);
+};
