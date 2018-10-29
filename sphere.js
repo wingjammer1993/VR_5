@@ -109,7 +109,7 @@ function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
-//    renderer.vr.enabled = true;
+    renderer.vr.enabled = true;
     container.appendChild( renderer.domElement );
     /* 3. Add the WebVR button */
     document.body.appendChild( WEBVR.createButton( renderer ) );
